@@ -17,6 +17,17 @@ Data Forage is a full-stack SaaS application designed for efficient file storage
 - **Backend**: Powered by a robust API layer for handling business logic and data processing.
 - **Database**: Utilizes a scalable database solution for storing user data and files.
 - **Cloud Storage**: Integrated with cloud services for reliable file storage and retrieval.
+- **Authentication**: Implemented using [better-auth](https://github.com/better-auth/better-auth) for secure and flexible authentication flows.
+
+## Authentication
+
+Data Forage uses better-auth for handling authentication across the application:
+
+- **Server-Side Authentication**: Implemented in `src/lib/better-auth/auth.ts` using the better-auth library with Next.js cookie integration.
+- **Client-Side Authentication**: Set up in `src/lib/better-auth/auth-client.ts` for React components.
+- **Server Actions**: Authentication state is accessed in server components and actions via `src/actions/auth.action.ts`.
+
+This authentication system provides secure session management, user authentication, and authorization controls throughout the application.
 
 ## Getting Started
 
