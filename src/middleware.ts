@@ -1,21 +1,25 @@
 import type { auth } from "@/lib/better-auth/auth";
-import { NextRequest, type NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import axios from 'axios';
+import { Session } from "./lib/better-auth/auth-types";
 
 
-type Session = typeof auth.$Infer.Session;
 
-export async function middleware(request: NextRequest) {
+
+export async function getMiddlewareSession(req: NextRequest) {
   const { data: session } = await axios.get<Session>("/api/auth/get-session", {
-    baseURL: request.nextUrl.origin,
+    baseURL: req.nextUrl.origin,
     headers: {
-      cookie: request.headers.get("cookie") || "",
+      cookie: req.headers.get("cookie") || "",
     },
   });
 
-  return session;
+  return session
 }
 
+
 export default async function authMiddleware(req: NextRequest) {
-  const session = await getMiddlewareSession(req);
+  if (!session) {
+    return NextResponse.redirect(new URL("/sign-in", req.url));
+  }
 }
